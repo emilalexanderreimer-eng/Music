@@ -1,0 +1,20 @@
+# Render.com blueprint — deploy the backend with "New → Blueprint" or connect
+# the repo manually as a Web Service with rootDir "server".
+services:
+  - type: web
+    name: partyqueue-server
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /health
+    envVars:
+      - key: SPOTIFY_CLIENT_ID
+        sync: false
+      - key: SPOTIFY_CLIENT_SECRET
+        sync: false
+      - key: HOST_PIN
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
