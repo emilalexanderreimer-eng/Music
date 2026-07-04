@@ -174,6 +174,9 @@ const allowedOrigins = [new URL(FRONTEND_URL).origin, 'http://localhost:5173'];
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
+// Opening the backend URL directly just takes you to the app.
+app.get('/', (req, res) => res.redirect(FRONTEND_URL));
+
 app.get('/ping', (req, res) => res.status(200).send('OK'));
 
 app.get('/health', (req, res) =>
