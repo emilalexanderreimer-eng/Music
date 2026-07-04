@@ -244,8 +244,8 @@ app.get('/api/search', async (req, res) => {
   try {
     res.json({ tracks: await spotify.searchTracks(q) });
   } catch (err) {
-    console.error('Search failed:', err.message);
-    res.status(502).json({ error: 'Spotify search failed' });
+    console.error('Search failed:', err);
+    res.status(502).json({ error: 'Spotify search failed', detail: err.message });
   }
 });
 
