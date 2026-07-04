@@ -143,7 +143,9 @@ export async function searchTracks(query) {
     token = null;
   }
   if (!token) token = await getAppToken();
-  const params = new URLSearchParams({ q: query, type: 'track', limit: '20' });
+  // No explicit limit param — the deployed Spotify API rejects it with
+  // 400 "Invalid limit"; the default page size is capped below instead.
+  const params = new URLSearchParams({ q: query, type: 'track' });
   const res = await fetch(`${API}/search?${params}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -151,7 +153,7 @@ export async function searchTracks(query) {
     throw new Error(`Spotify search failed (${res.status}): ${await res.text()}`);
   }
   const data = await res.json();
-  return (data.tracks?.items || []).map((item) => ({
+  return (data.tracks?.items || []).slice(0, 20).map((item) => ({
     id: item.id,
     uri: item.uri,
     name: item.name,
