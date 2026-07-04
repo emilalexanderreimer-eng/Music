@@ -132,7 +132,17 @@ export async function pause(deviceId) {
 }
 
 export async function searchTracks(query) {
-  const token = await getAppToken();
+  // Prefer the host's user token once Spotify is connected — some apps get
+  // their client-credentials tokens rejected for /search, and the user token
+  // is known-good (the host just logged in with it). Fall back to the
+  // client-credentials app token so search also works before the host logs in.
+  let token = null;
+  try {
+    token = await getUserToken();
+  } catch {
+    token = null;
+  }
+  if (!token) token = await getAppToken();
   const params = new URLSearchParams({ q: query, type: 'track', limit: '20' });
   const res = await fetch(`${API}/search?${params}`, {
     headers: { Authorization: `Bearer ${token}` },
