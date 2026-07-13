@@ -40,7 +40,6 @@ export default function SearchModal({ state, onClose }) {
   const unavailable = (trackId) => {
     if (state?.nowPlaying?.track.id === trackId) return 'Playing';
     if (state?.pool.some((s) => s.track.id === trackId)) return 'In queue';
-    if (state?.recentlyPlayed.some((r) => r.track.id === trackId)) return 'Just played';
     return null;
   };
 

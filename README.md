@@ -31,7 +31,8 @@ Guests (phones)                    Backend (Render)              Host (laptop + 
   device.
 - **Guests** scan the QR code (or open the shared link), enter a name, and
   start adding and voting. Max 3 songs per guest in the queue at once, one vote
-  per song per guest, and recently played songs (last 10) can't be re-added.
+  per song per guest. Played songs show up in a "Recently played" list
+  (last 10) and can be added again right away.
 
 ---
 

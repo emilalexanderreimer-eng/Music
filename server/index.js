@@ -88,9 +88,6 @@ function currentProgress() {
 function trackIsBlocked(trackId) {
   if (state.nowPlaying?.track.id === trackId) return 'That song is playing right now';
   if (state.pool.some((s) => s.track.id === trackId)) return 'That song is already in the queue';
-  if (state.recentlyPlayed.some((r) => r.track.id === trackId)) {
-    return 'That song was just played — try again later';
-  }
   return null;
 }
 
